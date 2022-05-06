@@ -41,7 +41,12 @@ async function findOutdatedUser() {
 	});
 }
 
+async function deleteUser(userId){
+	await member.destroy({ where: { user_id: userId } });
+}
+
 module.exports.addMember = addMember;
 module.exports.findMember = findMember;
 module.exports.updateDate = updateDate;
 module.exports.findOutdatedUser = findOutdatedUser;
+module.exports.deleteUser = deleteUser;
