@@ -5,6 +5,7 @@ const verifySys = require('./modules/verifySystem');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS , Intents.FLAGS.GUILD_MESSAGES] });
 const prefix = '=>'
 const fs = require('fs');
+const  config  = require('./config.json');
 client.commands = new Collection();
 client.buttons = new Collection();
 const commandFiles = fs.readdirSync('./cmds').filter(file => file.endsWith('.js'));
@@ -34,7 +35,7 @@ client.once('ready', async () => {
 	const firstOutDated = await verifySys.findOutdatedUser()
 	for(let i=0; i<firstOutDated.length; i++){
 		const embed = new MessageEmbed().setDescription('你在 みけねこの貓窩 的 Youtube會員 審核已過期，請重新驗證').setColor('RED')
-		const user = client.users.cache.get(firstOutDated[i].user_id)
+		const user = client.users.fetch(firstOutDated[i].user_id)
 		await user.send({embeds:[embed]})
 	}
 
@@ -44,8 +45,9 @@ client.once('ready', async () => {
 		const outDated = await verifySys.findOutdatedUser()
 		for(let i=0; i<outDated.length; i++){
 			const embed = new MessageEmbed().setDescription('你在 みけねこの貓窩 的 Youtube會員 審核已過期，請重新驗證').setColor('RED')
-			const user = client.users.cache.get(outDated[i].user_id)
+			const user = client.users.fetch(outDated[i].user_id)
 			await user.send({embeds:[embed]})
+			
 		}
 	}, 24*60*60*1000);
 	
