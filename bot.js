@@ -2,7 +2,7 @@ const { token } = require('./config.json');
 const sql = require('sequelize')
 const { Client, Intents, Collection, MessageEmbed } = require('discord.js');
 const verifySys = require('./modules/verifySystem');
-const client = new Client({ intents: [Intents.FLAGS.GUILDS , Intents.FLAGS.GUILD_MESSAGES] });
+const client = new Client({partials:['GUILD_MEMBER'] ,intents: [Intents.FLAGS.GUILDS , Intents.FLAGS.GUILD_MESSAGES,Intents.FLAGS.GUILD_MEMBERS] });
 const prefix = '=>'
 const fs = require('fs');
 const  config  = require('./config.json');
@@ -35,8 +35,12 @@ client.once('ready', async () => {
 	const firstOutDated = await verifySys.findOutdatedUser()
 	for(let i=0; i<firstOutDated.length; i++){
 		const embed = new MessageEmbed().setDescription('你在 みけねこの貓窩 的 Youtube會員 審核已過期，請重新驗證').setColor('RED')
-		const user = client.users.fetch(firstOutDated[i].user_id)
+		const user = await client.users.fetch(firstOutDated[i].user_id)
 		await user.send({embeds:[embed]})
+		//let role = await (await client.guilds.fetch(config.guildID)).roles.fetch('951074513905418290')
+		const server = await client.guilds.cache.get(config.guildID)
+		const member = await server.members.fetch(firstOutDated[i].user_id) 
+		member.roles.remove('951074513905418290')
 	}
 
 	console.log(`以 ${client.user.tag} 登入`);
@@ -45,9 +49,11 @@ client.once('ready', async () => {
 		const outDated = await verifySys.findOutdatedUser()
 		for(let i=0; i<outDated.length; i++){
 			const embed = new MessageEmbed().setDescription('你在 みけねこの貓窩 的 Youtube會員 審核已過期，請重新驗證').setColor('RED')
-			const user = client.users.fetch(outDated[i].user_id)
+			const user = await client.users.fetch(outDated[i].user_id)
 			await user.send({embeds:[embed]})
-			
+			const server = await client.guilds.cache.get(config.guildID)
+			const member = await server.members.fetch(outDated[i].user_id) 
+			member.roles.remove('951074513905418290')
 		}
 	}, 24*60*60*1000);
 	
