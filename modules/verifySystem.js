@@ -9,7 +9,7 @@ const sequelize = new sql('database', 'user', 'password', {
 	storage: 'database.sqlite',
 });
 
-const YTmember = require('./member.js')(sequelize, sql.DataTypes);
+const YTmember = require('./YTmember.js')(sequelize, sql.DataTypes);
 const TCmember = require('./TCmember.js')(sequelize, sql.DataTypes);
 
 async function addYTMember(userId) {
