@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-	return sequelize.define('ytmember', {
+	return sequelize.define('tcmember', {
 		user_id: {
 			type: DataTypes.STRING,
 			primaryKey: true
@@ -12,4 +12,5 @@ module.exports = (sequelize, DataTypes) => {
 		freezeTableName: true,
 		timestamps: false
 	});
+	
 }
