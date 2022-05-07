@@ -1,6 +1,6 @@
 const { token } = require('./config.json');
 const sql = require('sequelize')
-const { Client, Intents, Collection, MessageEmbed } = require('discord.js');
+const { Client, Intents, Collection, MessageEmbed,MessageActionRow,MessageButton } = require('discord.js');
 const verifySys = require('./modules/verifySystem');
 const client = new Client({partials:['GUILD_MEMBER'] ,intents: [Intents.FLAGS.GUILDS , Intents.FLAGS.GUILD_MESSAGES,Intents.FLAGS.GUILD_MEMBERS] });
 const prefix = '=>'
@@ -62,7 +62,7 @@ client.once('ready', async () => {
 
 client.on('messageCreate', async msg => {
 	if (msg.author.bot)return;
-	if (msg.content.startsWith(prefix+'url') && msg.guild.id==='946307370877857793'){
+	/*if (msg.content.startsWith(prefix+'url') && msg.guild.id==='946307370877857793'){
 		
 		if(msg.attachments.size>0){
 			msg.attachments.forEach(a=>{
@@ -71,8 +71,37 @@ client.on('messageCreate', async msg => {
 		})}else{
 			msg.reply('請將圖片以附件形式加在訊息中')
 		}
+	}*/
+	if (msg.channelId === '951114942864560148'){
+		if(msg.attachments.size>0){
+			msg.attachments.forEach(a=>{
+			const url = a.url
+			if(!url.startsWith('https://')||(!url.endsWith('.jpg')&&!url.endsWith('.png'))){
+            	 msg.reply('圖片格式錯誤，僅接受jpg與png檔案');
+            	return
+        	}else{
+				const embed = {
+					title: "會員審查",
+					description: `審查：<@${msg.author.id}>`,
+					author: {
+						  name: `${msg.author.tag}`,
+						  icon_url: `${msg.author.avatarURL()}`
+					},
+					color: 53380,
+					footer: {
+						  text: `${msg.author.id}`
+					},
+					image: {url :`${url}`}}
+				const approve = new MessageButton().setCustomId('approve').setLabel('通過').setStyle('SUCCESS')
+				const dismiss = new MessageButton().setCustomId('dismiss').setLabel('不通過').setStyle('DANGER')
+				const row = new MessageActionRow().addComponents(approve).addComponents(dismiss)
+				const adminchannel =  client.channels.cache.get('971679867198377994')
+				adminchannel.send({embeds:[embed],components:[row]})
+			}
+		})}else{
+			msg.reply('此頻道僅限上傳圖片')
+		}
 	}
-	
 })
 
 
