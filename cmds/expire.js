@@ -15,7 +15,7 @@ module.exports = {
             if(interaction.member.roles.cache.some(role=>role.id === '947827884364558406')){
                 interaction.reply('你的TC會員未過期，不可自資料庫移除')
             }else{
-                await verifySys.deleteYTUser(interaction.user.id)
+                await verifySys.deleteTCUser(interaction.user.id)
                 interaction.reply('已將你從 TC會員 資料庫移除')}
         }
     }
