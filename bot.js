@@ -56,8 +56,8 @@ client.once('ready', async () => {
 	}
 
 	console.log(`以 ${client.user.tag} 登入`);
-	client.user.setAvatar('https://cdn.discordapp.com/avatars/496299518703435777/2de5d6aa84950020a954aa5913846540.png?size=2048')
-	client.user.setUsername('會員審核')
+	//client.user.setAvatar('https://cdn.discordapp.com/avatars/496299518703435777/2de5d6aa84950020a954aa5913846540.png?size=2048')
+	//client.user.setUsername('會員審核')
 	
 	setInterval(async () => {
 		const YTOutDated = await verifySys.findOutdatedYTUser()
