@@ -42,7 +42,7 @@ client.once('ready', async () => {
 		await user.send({embeds:[embed]})
 		const server = await client.guilds.cache.get(config.guildID)
 		const member = await server.members.fetch(YTFirstOutDated[i].user_id) 
-		member.roles.remove('951074513905418290')
+		member.roles.remove('972727142175637586')
 	}
 
 	const TCFirstOutDated = await verifySys.findOutdatedTCUser()
@@ -56,6 +56,8 @@ client.once('ready', async () => {
 	}
 
 	console.log(`以 ${client.user.tag} 登入`);
+	client.user.setAvatar('https://cdn.discordapp.com/avatars/496299518703435777/2de5d6aa84950020a954aa5913846540.png?size=2048')
+	client.user.setUsername('會員審核')
 	
 	setInterval(async () => {
 		const YTOutDated = await verifySys.findOutdatedYTUser()
@@ -65,7 +67,7 @@ client.once('ready', async () => {
 			await user.send({embeds:[embed]})
 			const server = await client.guilds.cache.get(config.guildID)
 			const member = await server.members.fetch(YTOutDated[i].user_id) 
-			member.roles.remove('951074513905418290')
+			member.roles.remove('972727142175637586')
 		}
 
 		const TCOutDated = await verifySys.findOutdatedTCUser()

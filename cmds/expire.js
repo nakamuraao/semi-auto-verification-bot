@@ -6,7 +6,7 @@ module.exports = {
 
     async execute(interaction){
         if (interaction.options.getSubcommand() === 'youtube') {
-            if(interaction.member.roles.cache.some(role=>role.id === '951074513905418290')){
+            if(interaction.member.roles.cache.some(role=>role.id === '972727142175637586')){
                 interaction.reply('你的YT會員未過期，不可自資料庫移除')
             }else{
                 await verifySys.deleteYTUser(interaction.user.id)

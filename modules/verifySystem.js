@@ -31,7 +31,7 @@ async function updateYTDate(userId) {
 
 async function findOutdatedYTUser() {
 	var now = new Date();
-	now.setDate(now.getDate() - 30);
+	now.setDate(now.getDate() - 32);
 	//console.log(now);
 	return await YTmember.findAll({ 
 		where: {
@@ -66,7 +66,7 @@ async function updateTCDate(userId) {
 
 async function findOutdatedTCUser() {
 	var now = new Date();
-	now.setDate(now.getDate() - 30);
+	now.setDate(now.getDate() - 32);
 	//console.log(now);
 	return await TCmember.findAll({ 
 		where: {

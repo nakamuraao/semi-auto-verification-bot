@@ -17,7 +17,7 @@ module.exports = {
                 await verifySys.updateYTDate(oldEmbedFooter);
             }
             //身分組
-            const role = await interaction.guild.roles.cache.find(r=>r.id==='951074513905418290')
+            const role = await interaction.guild.roles.cache.find(r=>r.id==='972727142175637586')
             const member = await interaction.guild.members.fetch(oldEmbedFooter) // await client.users.cache.get(oldEmbedFooter)
             // console.log(member)
             await member.roles.add(role)
