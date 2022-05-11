@@ -39,21 +39,31 @@ client.once('ready', async () => {
 	const YTFirstOutDated = await verifySys.findOutdatedYTUser()
 	for(let i=0; i<YTFirstOutDated.length; i++){
 		const embed = new MessageEmbed().setDescription('你在 みけねこの貓窩 的 Youtube會員 審核已過期，請重新驗證').setColor('RED')
-		const user = await client.users.fetch(YTFirstOutDated[i].user_id)
-		await user.send({embeds:[embed]})
+
 		const server = await client.guilds.cache.get(config.guildID)
-		const member = await server.members.fetch(YTFirstOutDated[i].user_id) 
-		member.roles.remove('972727142175637586')
+		if (server.members.cache.find(YTFirstOutDated[i].user_id)){
+			const user = await client.users.fetch(YTFirstOutDated[i].user_id)
+			await user.send({embeds:[embed]})
+			const member = await server.members.fetch(YTFirstOutDated[i].user_id) 
+			member.roles.remove('972727142175637586')
+		}else{
+			verifySys.deleteYTUser(YTFirstOutDated[i].user_id)
+		}
 	}
 
 	const TCFirstOutDated = await verifySys.findOutdatedTCUser()
 	for(let i=0; i<TCFirstOutDated.length; i++){
 		const embed = new MessageEmbed().setDescription('你在 みけねこの貓窩 的 TwitCasting會員 審核已過期，請重新驗證').setColor('RED')
-		const user = await client.users.fetch(TCFirstOutDated[i].user_id)
-		await user.send({embeds:[embed]})
+
 		const server = await client.guilds.cache.get(config.guildID)
-		const member = await server.members.fetch(TCFirstOutDated[i].user_id) 
-		member.roles.remove('947827884364558406')
+		if (server.members.cache.find(TCFirstOutDated[i].user_id)){
+			const user = await client.users.fetch(TCFirstOutDated[i].user_id)
+			await user.send({embeds:[embed]})
+			const member = await server.members.fetch(TCFirstOutDated[i].user_id) 
+			member.roles.remove('947827884364558406')
+		}else{
+			verifySys.deleteTCUser(TCFirstOutDated[i].user_id)
+		}
 	}
 
 	console.log(`以 ${client.user.tag} 登入`);
@@ -68,21 +78,31 @@ client.once('ready', async () => {
 		const YTOutDated = await verifySys.findOutdatedYTUser()
 		for(let i=0; i<YTOutDated.length; i++){
 			const embed = new MessageEmbed().setDescription('你在 みけねこの貓窩 的 Youtube會員 審核已過期，請重新驗證').setColor('RED')
-			const user = await client.users.fetch(YTOutDated[i].user_id)
-			await user.send({embeds:[embed]})
+
 			const server = await client.guilds.cache.get(config.guildID)
-			const member = await server.members.fetch(YTOutDated[i].user_id) 
-			member.roles.remove('972727142175637586')
+			if (server.members.cache.find(YTOutDated[i].user_id)){
+				const user = await client.users.fetch(YTOutDated[i].user_id)
+				await user.send({embeds:[embed]})
+				const member = await server.members.fetch(YTOutDated[i].user_id) 
+				member.roles.remove('972727142175637586')
+			}else{
+				verifySys.deleteYTUser(YTOutDated[i].user_id)
+			}
 		}
 
 		const TCOutDated = await verifySys.findOutdatedTCUser()
 		for(let i=0; i<TCOutDated.length; i++){
 			const embed = new MessageEmbed().setDescription('你在 みけねこの貓窩 的 TwitCasting會員 審核已過期，請重新驗證').setColor('RED')
-			const user = await client.users.fetch(TCOutDated[i].user_id)
-			await user.send({embeds:[embed]})
+
 			const server = await client.guilds.cache.get(config.guildID)
-			const member = await server.members.fetch(TCOutDated[i].user_id) 
-			member.roles.remove('947827884364558406')
+			if (server.members.cache.find(TCOutDated[i].user_id)){
+				const user = await client.users.fetch(TCOutDated[i].user_id)
+				await user.send({embeds:[embed]})
+				const member = await server.members.fetch(TCOutDated[i].user_id) 
+				member.roles.remove('947827884364558406')
+			}else{
+				verifySys.deleteTCUser(TCOutDated[i].user_id)
+			}
 		}
 	}, 24*60*60*1000);
 	
