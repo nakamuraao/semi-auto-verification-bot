@@ -171,7 +171,7 @@ client.on('messageCreate', async msg => {
             	return
         	}else{
 				msg.author.send('已收到你的YT認證，敬請稍候審核').catch(error=>
-					msg.reply('請允許"允許來自伺服器成員的私人訊息"'))
+					msg.reply('請將"允許來自伺服器成員的私人訊息"打開'))
 				const embed = new MessageEmbed()
 					.setTitle(`${msg.author.tag} (${msg.author.id})`)
 					.setDescription(`審查：<@${msg.author.id}>`)
