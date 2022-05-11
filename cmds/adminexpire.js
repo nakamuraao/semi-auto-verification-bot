@@ -10,7 +10,7 @@ module.exports = {
 
     async execute(interaction){
 
-        if(interaction.member.roles.cache.some(role=>role.id === '962745965742264391')||interaction.member.roles.cache.some(role=>role.id === '946307371192446990')||interaction.member.roles.cache.some(role=>role.id === '947826801332322334')){
+        if(interaction.member.roles.cache.some(role=>role.id === '962745965742264391')||interaction.member.roles.cache.some(role=>role.id === '946307371192446990')||interaction.member.roles.cache.some(role=>role.id === '947826801332322334')||interaction.member.roles.cache.some(role=>role.id === '946307371192446991')){
             const id = interaction.options.getString('user')
             if (interaction.options.getSubcommand() === 'youtube') {
 
@@ -24,6 +24,8 @@ module.exports = {
                 interaction.reply(`成功將<@${id}>自 TC資料庫 移除`)
                 
             }
+        }else{
+            interaction.reply({ content: '此為管理員與會員審核員專用指令', ephemeral: true });
         }
     }
 }
