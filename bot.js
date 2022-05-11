@@ -102,13 +102,20 @@ client.on('messageCreate', async msg => {
 		}
 	}*/
 	if (msg.channelId === '951114942864560148'){
+		
 		if(msg.attachments.size>0){
+			
 			msg.attachments.forEach(a=>{
 			const url = a.url
 			if(!url.startsWith('https://')||(!url.endsWith('.jpg')&&!url.endsWith('.png')&&!url.endsWith('.PNG')&&!url.endsWith('.JPG'))){
             	 msg.reply('圖片格式錯誤，僅接受jpg與png檔案');
             	return
         	}else{
+				try{
+					msg.author.send('已收到你的YT認證，敬請稍候審核')
+				}catch(err){
+					msg.reply('請允許"允許來自伺服器成員的私人訊息"')
+				}
 				const embed = new MessageEmbed()
 					.setTitle(`${msg.author.tag} (${msg.author.id})`)
 					.setDescription(`審查：<@${msg.author.id}>`)
@@ -144,6 +151,11 @@ client.on('messageCreate', async msg => {
             	 msg.reply('圖片格式錯誤，僅接受jpg與png檔案');
             	return
         	}else{
+				try{
+					msg.author.send('已收到你的TC認證，敬請稍候審核')
+				}catch(err){
+					msg.reply('請允許"允許來自伺服器成員的私人訊息"')
+				}
 				const embed = new MessageEmbed()
 					.setTitle(`${msg.author.tag} (${msg.author.id})`)
 					.setDescription(`審查：<@${msg.author.id}>`)
