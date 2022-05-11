@@ -6,6 +6,7 @@ const client = new Client({partials:['GUILD_MEMBER'] ,intents: [Intents.FLAGS.GU
 const prefix = '=>'
 const fs = require('fs');
 const  config  = require('./config.json');
+const { time } = require('console');
 client.commands = new Collection();
 client.buttons = new Collection();
 const commandFiles = fs.readdirSync('./cmds').filter(file => file.endsWith('.js'));
@@ -56,6 +57,10 @@ client.once('ready', async () => {
 	}
 
 	console.log(`以 ${client.user.tag} 登入`);
+	const now = new Date()
+	//const time = now.getFullYear()+'/'+(now.getMonth()+1)+'/'+now.getDate()+'--'+now.getTime()
+	const time = now.toTimeString()
+	console.log(`${time}`)
 	//client.user.setAvatar('https://cdn.discordapp.com/avatars/496299518703435777/2de5d6aa84950020a954aa5913846540.png?size=2048')
 	//client.user.setUsername('會員審核')
 	
@@ -100,11 +105,17 @@ client.on('messageCreate', async msg => {
 		if(msg.attachments.size>0){
 			msg.attachments.forEach(a=>{
 			const url = a.url
-			if(!url.startsWith('https://')||(!url.endsWith('.jpg')&&!url.endsWith('.png'))){
+			if(!url.startsWith('https://')||(!url.endsWith('.jpg')&&!url.endsWith('.png')&&!url.endsWith('.PNG')&&!url.endsWith('.JPG'))){
             	 msg.reply('圖片格式錯誤，僅接受jpg與png檔案');
             	return
         	}else{
-				const embed = {
+				const embed = new MessageEmbed()
+					.setTitle(`${msg.author.tag} (${msg.author.id})`)
+					.setDescription(`審查：<@${msg.author.id}>`)
+					.setColor('GREEN')
+					.setFooter({text: msg.author.id})
+					.setImage(`${url}`)
+				/*{
 					title: "會員審查",
 					description: `審查：<@${msg.author.id}>`,
 					author: {
@@ -115,7 +126,7 @@ client.on('messageCreate', async msg => {
 					footer: {
 						  text: `${msg.author.id}`
 					},
-					image: {url :`${url}`}}
+					image: {url :`${url}`}}*/
 				const approve = new MessageButton().setCustomId('approve').setLabel('通過').setStyle('SUCCESS')
 				const dismiss = new MessageButton().setCustomId('dismiss').setLabel('不通過').setStyle('DANGER')
 				const row = new MessageActionRow().addComponents(approve).addComponents(dismiss)
@@ -129,11 +140,17 @@ client.on('messageCreate', async msg => {
 		if(msg.attachments.size>0){
 			msg.attachments.forEach(a=>{
 			const url = a.url
-			if(!url.startsWith('https://')||(!url.endsWith('.jpg')&&!url.endsWith('.png'))){
+			if(!url.startsWith('https://')||(!url.endsWith('.jpg')&&!url.endsWith('.png')&&!url.endsWith('.PNG')&&!url.endsWith('.JPG'))){
             	 msg.reply('圖片格式錯誤，僅接受jpg與png檔案');
             	return
         	}else{
-				const embed = {
+				const embed = new MessageEmbed()
+					.setTitle(`${msg.author.tag} (${msg.author.id})`)
+					.setDescription(`審查：<@${msg.author.id}>`)
+					.setColor('GREEN')
+					.setFooter({text: msg.author.id})
+					.setImage(`${url}`)
+				/*{
 					title: "會員審查",
 					description: `審查：<@${msg.author.id}>`,
 					author: {
@@ -144,7 +161,7 @@ client.on('messageCreate', async msg => {
 					footer: {
 						  text: `${msg.author.id}`
 					},
-					image: {url :`${url}`}}
+					image: {url :`${url}`}}*/
 				const approve = new MessageButton().setCustomId('approve').setLabel('通過').setStyle('SUCCESS')
 				const dismiss = new MessageButton().setCustomId('dismiss').setLabel('不通過').setStyle('DANGER')
 				const row = new MessageActionRow().addComponents(approve).addComponents(dismiss)
