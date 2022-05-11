@@ -7,7 +7,7 @@ module.exports = {
     async execute(interaction){
         const helpembed = new MessageEmbed()
 				.setColor('#76afee')
-				.setTitle('半自動會員審核機器人 v1.2.4(2022.5.11)')
+				.setTitle('半自動會員審核機器人 v1.2.5(2022.5.11)')
 				.setDescription('由 蒼アオ#7022 與 Pierre#9505 製作，有任何問題請洽管理員\n\n')
         //.addField('取得圖片url','將圖片以附件形式加在訊息裡，訊息內容打=>url，有問題請洽管理員或看別人怎麼做',false)
 				//.addField('審核指令','/verify `圖片url`',false)
