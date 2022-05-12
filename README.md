@@ -1,4 +1,5 @@
 #Semi-auto Membership Verification Bot\n
+Mind that there is another branch(semi-auto-2) for multipule(YT&TC) member verification
 ##Setup\n
 ###Environment\n
 Check [discord.js guide]() if you're new to discord.js. This bot requires \n\n1.basic packages for discord bot\n2.packages for slash command\n3.packages for sqlite database\n\n
