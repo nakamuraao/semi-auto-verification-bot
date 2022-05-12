@@ -13,7 +13,7 @@ module.exports = {
         if(interaction.member.roles.cache.some(role=>role.id === config.adminrole)){
             const id = interaction.options.getString('user')
             
-            await verifySys.deleteYTUser(id)
+            await verifySys.deleteUser(id)
             interaction.reply(`成功將<@${id}>自資料庫移除`)
 
             

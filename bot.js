@@ -48,6 +48,9 @@ client.once('ready', async () => {
 		}
 	}
 
+	const now = new Date()
+	const time = now.toTimeString()
+	console.log(`${time}`)
 	console.log(`以 ${client.user.tag} 登入`);
 	
 	setInterval(async () => {
