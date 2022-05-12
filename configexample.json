@@ -5,5 +5,7 @@
     "guildID":"",
     "ytChannel":"",
     "adminChannel":"",
-    "role":""
+    "adminrole":"",
+    "role":"",
+    "servername":""
 }

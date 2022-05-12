@@ -29,7 +29,7 @@ async function updateDate(userId) {
 
 async function findOutdatedUser() {
 	var now = new Date();
-	now.setDate(now.getDate() - 30);
+	now.setDate(now.getDate() - 32);
 	//console.log(now);
 	return await member.findAll({ 
 		where: {
