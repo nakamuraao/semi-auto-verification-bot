@@ -5,7 +5,6 @@ const verifySys = require('./modules/verifySystem');
 const client = new Client({partials:['GUILD_MEMBER'] ,intents: [Intents.FLAGS.GUILDS , Intents.FLAGS.GUILD_MESSAGES,Intents.FLAGS.GUILD_MEMBERS] });
 const prefix = '=>'
 const fs = require('fs');
-const  config  = require('./config.json');
 client.commands = new Collection();
 client.buttons = new Collection();
 const commandFiles = fs.readdirSync('./cmds').filter(file => file.endsWith('.js'));
