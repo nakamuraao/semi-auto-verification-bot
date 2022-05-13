@@ -1,4 +1,5 @@
 const verifySys = require('../modules/verifySystem');
+const config = require('../config.json')
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
@@ -6,13 +7,13 @@ module.exports = {
 
     async execute(interaction){
         if (interaction.options.getSubcommand() === 'youtube') {
-            if(interaction.member.roles.cache.some(role=>role.id === '972727142175637586')){
+            if(interaction.member.roles.cache.some(role=>role.id === config.ytRole)){
                 interaction.reply('你的YT會員未過期，不可自資料庫移除')
             }else{
                 await verifySys.deleteYTUser(interaction.user.id)
                 interaction.reply('已將你從 YT會員 資料庫移除')}
         }else if (interaction.options.getSubcommand() === 'twitcasting'){
-            if(interaction.member.roles.cache.some(role=>role.id === '947827884364558406')){
+            if(interaction.member.roles.cache.some(role=>role.id === config.tcRole)){
                 interaction.reply('你的TC會員未過期，不可自資料庫移除')
             }else{
                 await verifySys.deleteTCUser(interaction.user.id)

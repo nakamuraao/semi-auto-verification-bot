@@ -1,5 +1,6 @@
 const verifySys = require('../modules/verifySystem');
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const config = require('../config.json')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,7 +11,7 @@ module.exports = {
 
     async execute(interaction){
 
-        if(interaction.member.roles.cache.some(role=>role.id === '962745965742264391')||interaction.member.roles.cache.some(role=>role.id === '946307371192446990')||interaction.member.roles.cache.some(role=>role.id === '947826801332322334')||interaction.member.roles.cache.some(role=>role.id === '946307371192446991')){
+        if(interaction.member.roles.cache.some(role=>role.id === config.adminRole1)||interaction.member.roles.cache.some(role=>role.id === config.adminRole2)||interaction.member.roles.cache.some(role=>role.id === config.adminRole3)||interaction.member.roles.cache.some(role=>role.id === config.adminRole4)){
             const id = interaction.options.getString('user')
             if (interaction.options.getSubcommand() === 'youtube') {
 

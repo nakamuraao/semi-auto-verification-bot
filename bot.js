@@ -1,4 +1,4 @@
-const { token } = require('./config.json');
+const config = require('./config.json');
 const sql = require('sequelize')
 const { Client, Intents, Collection, MessageEmbed,MessageActionRow,MessageButton } = require('discord.js');
 const verifySys = require('./modules/verifySystem');
@@ -6,7 +6,6 @@ const client = new Client({partials:['GUILD_MEMBER'] ,intents: [Intents.FLAGS.GU
 const prefix = '=>'
 const fs = require('fs');
 const  config  = require('./config.json');
-const { time } = require('console');
 client.commands = new Collection();
 client.buttons = new Collection();
 const commandFiles = fs.readdirSync('./cmds').filter(file => file.endsWith('.js'));
@@ -45,7 +44,7 @@ client.once('ready', async () => {
 			const user = await client.users.fetch(YTFirstOutDated[i].user_id)
 			await user.send({embeds:[embed]})
 			const member = await server.members.fetch(YTFirstOutDated[i].user_id) 
-			member.roles.remove('972727142175637586')
+			member.roles.remove(config.ytRole)
 		}else{
 			verifySys.deleteYTUser(YTFirstOutDated[i].user_id)
 		}
@@ -60,7 +59,7 @@ client.once('ready', async () => {
 			const user = await client.users.fetch(TCFirstOutDated[i].user_id)
 			await user.send({embeds:[embed]})
 			const member = await server.members.fetch(TCFirstOutDated[i].user_id) 
-			member.roles.remove('947827884364558406')
+			member.roles.remove(config.tcRole)
 		}else{
 			verifySys.deleteTCUser(TCFirstOutDated[i].user_id)
 		}
@@ -84,7 +83,7 @@ client.once('ready', async () => {
 				const user = await client.users.fetch(YTOutDated[i].user_id)
 				await user.send({embeds:[embed]})
 				const member = await server.members.fetch(YTOutDated[i].user_id) 
-				member.roles.remove('972727142175637586')
+				member.roles.remove(config.ytRole)
 			}else{
 				verifySys.deleteYTUser(YTOutDated[i].user_id)
 			}
@@ -99,7 +98,7 @@ client.once('ready', async () => {
 				const user = await client.users.fetch(TCOutDated[i].user_id)
 				await user.send({embeds:[embed]})
 				const member = await server.members.fetch(TCOutDated[i].user_id) 
-				member.roles.remove('947827884364558406')
+				member.roles.remove(config.tcRole)
 			}else{
 				verifySys.deleteTCUser(TCOutDated[i].user_id)
 			}
@@ -121,7 +120,7 @@ client.on('messageCreate', async msg => {
 			msg.reply('請將圖片以附件形式加在訊息中')
 		}
 	}*/
-	if (msg.channelId === '951114942864560148'){
+	if (msg.channelId === config.ytChannel){
 		
 		if(msg.attachments.size>0){
 			
@@ -156,13 +155,13 @@ client.on('messageCreate', async msg => {
 				const approve = new MessageButton().setCustomId('approve').setLabel('通過').setStyle('SUCCESS')
 				const dismiss = new MessageButton().setCustomId('dismiss').setLabel('不通過').setStyle('DANGER')
 				const row = new MessageActionRow().addComponents(approve).addComponents(dismiss)
-				const adminchannel =  client.channels.cache.get('971679867198377994')
+				const adminchannel =  client.channels.cache.get(config.adminYTChannel)
 				adminchannel.send({embeds:[embed],components:[row]})
 			}
 		})}else{
 			msg.reply('此頻道僅限上傳圖片')
 		}
-	}else if(msg.channelId === '946307371385372715'){
+	}else if(msg.channelId === config.tcChannel){
 		if(msg.attachments.size>0){
 			msg.attachments.forEach(a=>{
 			const url = a.url
@@ -193,7 +192,7 @@ client.on('messageCreate', async msg => {
 				const approve = new MessageButton().setCustomId('approve').setLabel('通過').setStyle('SUCCESS')
 				const dismiss = new MessageButton().setCustomId('dismiss').setLabel('不通過').setStyle('DANGER')
 				const row = new MessageActionRow().addComponents(approve).addComponents(dismiss)
-				const adminchannel =  client.channels.cache.get('972389397586640936')
+				const adminchannel =  client.channels.cache.get(config.adminTCChannel)
 				adminchannel.send({embeds:[embed],components:[row]})
 			}
 		})}else{
@@ -226,4 +225,4 @@ client.on('interactionCreate',async interaction => {
 	}
 
 })
-client.login(token);
+client.login(config.token);
