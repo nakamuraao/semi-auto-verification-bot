@@ -37,7 +37,7 @@ client.once('ready', async () => {
 	
 	const YTFirstOutDated = await verifySys.findOutdatedYTUser()
 	for(let i=0; i<YTFirstOutDated.length; i++){
-		const embed = new MessageEmbed().setDescription('你在 みけねこの貓窩 的 Youtube會員 審核已過期，請重新驗證').setColor('RED')
+		const embed = new MessageEmbed().setDescription(`你在 ${config.servername} 的 Youtube會員 審核已過期，請重新驗證`).setColor('RED')
 
 		const server = await client.guilds.cache.get(config.guildID)
 		if (server.members.cache.find(YTFirstOutDated[i].user_id)){
@@ -52,7 +52,7 @@ client.once('ready', async () => {
 
 	const TCFirstOutDated = await verifySys.findOutdatedTCUser()
 	for(let i=0; i<TCFirstOutDated.length; i++){
-		const embed = new MessageEmbed().setDescription('你在 みけねこの貓窩 的 TwitCasting會員 審核已過期，請重新驗證').setColor('RED')
+		const embed = new MessageEmbed().setDescription(`你在 ${config.servername} 的 TwitCasting會員 審核已過期，請重新驗證`).setColor('RED')
 
 		const server = await client.guilds.cache.get(config.guildID)
 		if (server.members.cache.find(TCFirstOutDated[i].user_id)){
@@ -76,7 +76,7 @@ client.once('ready', async () => {
 	setInterval(async () => {
 		const YTOutDated = await verifySys.findOutdatedYTUser()
 		for(let i=0; i<YTOutDated.length; i++){
-			const embed = new MessageEmbed().setDescription('你在 みけねこの貓窩 的 Youtube會員 審核已過期，請重新驗證').setColor('RED')
+			const embed = new MessageEmbed().setDescription(`你在 ${config.servername} 的 Youtube會員 審核已過期，請重新驗證`).setColor('RED')
 
 			const server = await client.guilds.cache.get(config.guildID)
 			if (server.members.cache.find(YTOutDated[i].user_id)){
@@ -91,7 +91,7 @@ client.once('ready', async () => {
 
 		const TCOutDated = await verifySys.findOutdatedTCUser()
 		for(let i=0; i<TCOutDated.length; i++){
-			const embed = new MessageEmbed().setDescription('你在 みけねこの貓窩 的 TwitCasting會員 審核已過期，請重新驗證').setColor('RED')
+			const embed = new MessageEmbed().setDescription(`你在 ${config.servername} 的 TwitCasting會員 審核已過期，請重新驗證`).setColor('RED')
 
 			const server = await client.guilds.cache.get(config.guildID)
 			if (server.members.cache.find(TCOutDated[i].user_id)){

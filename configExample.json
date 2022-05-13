@@ -2,5 +2,16 @@
     "token":"",
     "ownerID":"",
     "clientID":"",
-    "guildID":""
+    "guildID":"",
+    "ytChannel":"",
+    "adminYTChannel":"",
+    "tcChannel":"",
+    "adminTCChannel":"",
+    "adminRole1":"",
+    "adminRole2":"",
+    "adminRole3":"",
+    "adminRole4":"",
+    "ytRole":"",
+    "tcRole":"",
+    "servername":""
 }

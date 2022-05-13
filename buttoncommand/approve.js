@@ -6,7 +6,7 @@ module.exports = {
 
     async execute(interaction,client){
         if(interaction.channelId === config.adminYTChannel){
-            const embed2 = new MessageEmbed().setColor('BLUE').setDescription('你在 みけねこの貓窩 的 YouTube會員 審核已經通過，現在可以觀看會限頻道了')
+            const embed2 = new MessageEmbed().setColor('BLUE').setDescription(`你在 ${config.servername} 的 YouTube會員 審核已經通過，現在可以觀看會限頻道了`)
             const oldEmbedFooter = interaction.message.embeds[0].footer.text
             // console.log(oldEmbedFooter);
             await client.users.cache.get(oldEmbedFooter).send({embeds:[embed2]})
@@ -30,7 +30,7 @@ module.exports = {
             await interaction.update({components:[row]}); 
 
         }else if(interaction.channelId === config.adminTCChannel){
-            const embed2 = new MessageEmbed().setColor('BLUE').setDescription('你在 みけねこの貓窩 的 TwitCasting會員 審核已經通過，現在可以觀看會限頻道了')
+            const embed2 = new MessageEmbed().setColor('BLUE').setDescription(`你在 ${config.servername} 的 TwitCasting會員 審核已經通過，現在可以觀看會限頻道了`)
             const oldEmbedFooter = interaction.message.embeds[0].footer.text
             // console.log(oldEmbedFooter);
             await client.users.cache.get(oldEmbedFooter).send({embeds:[embed2]})
