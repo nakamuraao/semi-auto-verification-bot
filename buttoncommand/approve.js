@@ -1,20 +1,22 @@
 const verifySys = require('../modules/verifySystem');
-const {role} = require('../config.json')
-const {MessageButton,MessageActionRow,MessageEmbed} = require('discord.js')
+const config = require('../config.json')
+const { MessageButton, MessageActionRow, MessageEmbed } = require('discord.js')
 
 module.exports = {
 
-    async execute(interaction,client){
+    async execute(interaction, client){
+		const verifyObj = new verifySys.verifySystem(interaction.guild.id);
+		const role = config.guildList[interaction.guild.id].memberRole;
         const embed2 = new MessageEmbed().setColor('BLUE').setDescription(`你在 ${interaction.guild.name} 的 YouTube會員 審核已經通過，現在可以觀看會限頻道了`)
         const oldEmbedFooter = interaction.message.embeds[0].footer.text
 		// console.log(oldEmbedFooter);
         await client.users.cache.get(oldEmbedFooter).send({embeds:[embed2]})
         //加入db
-        if(!await verifySys.findMember(oldEmbedFooter)) {
-			await verifySys.addMember(oldEmbedFooter);
+        if(!await verifyObj.findMember(oldEmbedFooter)) {
+			await verifyObj.addMember(oldEmbedFooter);
 		}
 		else {
-			await verifySys.updateDate(oldEmbedFooter);
+			await verifyObj.updateDate(oldEmbedFooter);
 		}
         //身分組
         const member = await interaction.guild.members.fetch(oldEmbedFooter) // await client.users.cache.get(oldEmbedFooter)
@@ -27,5 +29,4 @@ module.exports = {
         const row = new MessageActionRow().addComponents(approve).addComponents(dismiss).addComponents(finish)
         await interaction.update({components:[row]}); //potential problem
     }
-
 }

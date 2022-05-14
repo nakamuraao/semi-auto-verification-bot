@@ -2,10 +2,20 @@
     "token":"",
     "ownerID":"",
     "clientID":"",
-    "guildID":"",
-    "ytChannel":"",
-    "adminChannel":"",
-    "adminrole":"",
-    "role":"",
-    "servername":""
+	"guildList": {
+		"your-guild-id-1": {
+			"serverName": "",
+			"adminChannel": "",
+			"adminRole": "",
+			"memberRole": "",
+			"ytChannel": ""
+		},
+		"your-guild-id-2": {
+			"serverName": "",
+			"adminChannel": "",
+			"adminRole": "",
+			"memberRole": "",
+			"ytChannel": ""
+		}
+	}
 }

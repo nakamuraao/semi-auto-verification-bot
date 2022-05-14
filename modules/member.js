@@ -1,5 +1,5 @@
-module.exports = (sequelize, DataTypes) => {
-	return sequelize.define('ytmember', {
+module.exports = (sequelize, DataTypes, guildId) => {
+	return sequelize.define(`ytmember_${guildId}`, {
 		user_id: {
 			type: DataTypes.STRING,
 			primaryKey: true
