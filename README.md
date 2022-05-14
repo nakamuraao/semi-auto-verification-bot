@@ -16,12 +16,12 @@ Check `configexample.json`, change its name to `config.json` after making the fo
 * `token` : your Discord bot token
 * `ownerID` : your UID
 * `clientID` : bot's UID
-* `guildID` : guild's ID
-* `ytChannel` : ID of the channel where you want server members to send their screenshot
+##### guildList
+* `serverName` : name of your server
 * `adminChannel` : ID of the channel where you want to verify them
-* `adminrole` : ID of the admins' role(required when executing `/adminexpire`)
-* `role` : YTmember role ID
-* `servername` : name of your server\
+* `adminRole` : ID of the admins' role(required when executing `/adminexpire`)
+* `memberRole` : YTmember role ID
+* `ytChannel` : ID of the channel where you want server members to send their screenshot\
 run `node cmdreg` to register the commands
 
 ## Contact us
