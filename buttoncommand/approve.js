@@ -9,7 +9,7 @@ module.exports = {
             const embed2 = new MessageEmbed().setColor('BLUE').setDescription(`你在 ${config.servername} 的 YouTube會員 審核已經通過，現在可以觀看會限頻道了`)
             const oldEmbedFooter = interaction.message.embeds[0].footer.text
             // console.log(oldEmbedFooter);
-            await client.users.cache.get(oldEmbedFooter).send({embeds:[embed2]})
+            await client.users.fetch(oldEmbedFooter).then(user => user.send({embeds:[embed2]}))
             //加入db
             if(!await verifySys.findYTMember(oldEmbedFooter)) {
                 await verifySys.addYTMember(oldEmbedFooter);
@@ -33,7 +33,8 @@ module.exports = {
             const embed2 = new MessageEmbed().setColor('BLUE').setDescription(`你在 ${config.servername} 的 TwitCasting會員 審核已經通過，現在可以觀看會限頻道了`)
             const oldEmbedFooter = interaction.message.embeds[0].footer.text
             // console.log(oldEmbedFooter);
-            await client.users.cache.get(oldEmbedFooter).send({embeds:[embed2]})
+            //await client.users.cache.get(oldEmbedFooter).send({embeds:[embed2]})
+            await client.users.fetch(oldEmbedFooter).then(user => user.send({embeds:[embed2]}))
             //加入db
             if(!await verifySys.findTCMember(oldEmbedFooter)) {
                 await verifySys.addTCMember(oldEmbedFooter);

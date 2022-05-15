@@ -1,14 +1,10 @@
 # Semi-auto Membership Verification Bot
-Mind that there is another branch(semi-auto-2) for multipule(YT&TC) member verification
 ## Introduction
 `Semi-auto Membership Verification Bot` can help admins to easily keep track of guild members who have membership(and membership roles). Once the admin clicked `approve`, the guild member gains the membership role for 32 days.
 
 ## Setup
 ### Environment
-Check [discord.js guide](https://discordjs.guide/) if you're new to discord.js. This bot requires \
-1.basic packages for discord bot\
-2.packages for slash commands\
-3.packages for sqlite database
+Check [discord.js guide](https://discordjs.guide/) if you're new to discord.js. Run `npm install` to install necessary packages.
 
 ### Config.json
 Check `configexample.json`, change its name to `config.json` after making the following changes.

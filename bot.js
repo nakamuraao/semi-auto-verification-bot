@@ -37,30 +37,26 @@ client.once('ready', async () => {
 	const YTFirstOutDated = await verifySys.findOutdatedYTUser()
 	for(let i=0; i<YTFirstOutDated.length; i++){
 		const embed = new MessageEmbed().setDescription(`你在 ${config.servername} 的 Youtube會員 審核已過期，請重新驗證`).setColor('RED')
-
-		const server = await client.guilds.cache.get(config.guildID)
-		if (server.members.cache.find(YTFirstOutDated[i].user_id)){
-			const user = await client.users.fetch(YTFirstOutDated[i].user_id)
-			await user.send({embeds:[embed]})
-			const member = await server.members.fetch(YTFirstOutDated[i].user_id) 
-			member.roles.remove(config.ytRole)
-		}else{
-			verifySys.deleteYTUser(YTFirstOutDated[i].user_id)
+		const server = client.guilds.cache.get(config.guildID)
+		await verifySys.deleteYTUser(YTFirstOutDated[i].user_id)
+		try {
+			await client.users.fetch(YTFirstOutDated[i].user_id).then(user => user.send({embeds:[embed]}))
+			await server.members.fetch(YTFirstOutDated[i].user_id).then(user => user.roles.remove(config.ytRole))
+		}catch(error){
+			console.log(`${YTFirstOutDated[i].user_id} 此人已退出 ${config.servername}`)
 		}
 	}
 
 	const TCFirstOutDated = await verifySys.findOutdatedTCUser()
 	for(let i=0; i<TCFirstOutDated.length; i++){
 		const embed = new MessageEmbed().setDescription(`你在 ${config.servername} 的 TwitCasting會員 審核已過期，請重新驗證`).setColor('RED')
-
 		const server = await client.guilds.cache.get(config.guildID)
-		if (server.members.cache.find(TCFirstOutDated[i].user_id)){
-			const user = await client.users.fetch(TCFirstOutDated[i].user_id)
-			await user.send({embeds:[embed]})
-			const member = await server.members.fetch(TCFirstOutDated[i].user_id) 
-			member.roles.remove(config.tcRole)
-		}else{
-			verifySys.deleteTCUser(TCFirstOutDated[i].user_id)
+		await verifySys.deleteTCUser(TCFirstOutDated[i].user_id)
+		try {
+			await client.users.fetch(TCFirstOutDated[i].user_id).then(user => user.send({embeds:[embed]}))
+			await server.members.fetch(TCFirstOutDated[i].user_id).then(user => user.roles.remove(config.tcRole))
+		}catch(error){
+			console.log(`${TCFirstOutDated[i].user_id} 此人已退出 ${config.servername}`)
 		}
 	}
 
@@ -76,30 +72,26 @@ client.once('ready', async () => {
 		const YTOutDated = await verifySys.findOutdatedYTUser()
 		for(let i=0; i<YTOutDated.length; i++){
 			const embed = new MessageEmbed().setDescription(`你在 ${config.servername} 的 Youtube會員 審核已過期，請重新驗證`).setColor('RED')
-
-			const server = await client.guilds.cache.get(config.guildID)
-			if (server.members.cache.find(YTOutDated[i].user_id)){
-				const user = await client.users.fetch(YTOutDated[i].user_id)
-				await user.send({embeds:[embed]})
-				const member = await server.members.fetch(YTOutDated[i].user_id) 
-				member.roles.remove(config.ytRole)
-			}else{
-				verifySys.deleteYTUser(YTOutDated[i].user_id)
+			const server = client.guilds.cache.get(config.guildID)
+			await verifySys.deleteYTUser(YTOutDated[i].user_id)
+			try {
+				await client.users.fetch(YTOutDated[i].user_id).then(user => user.send({embeds:[embed]}))
+				await server.members.fetch(YTOutDated[i].user_id).then(user => user.roles.remove(config.ytRole))
+			}catch(error){
+				console.log(`${YTOutDated[i].user_id} 此人已退出 ${config.servername}`)
 			}
 		}
 
 		const TCOutDated = await verifySys.findOutdatedTCUser()
 		for(let i=0; i<TCOutDated.length; i++){
 			const embed = new MessageEmbed().setDescription(`你在 ${config.servername} 的 TwitCasting會員 審核已過期，請重新驗證`).setColor('RED')
-
 			const server = await client.guilds.cache.get(config.guildID)
-			if (server.members.cache.find(TCOutDated[i].user_id)){
-				const user = await client.users.fetch(TCOutDated[i].user_id)
-				await user.send({embeds:[embed]})
-				const member = await server.members.fetch(TCOutDated[i].user_id) 
-				member.roles.remove(config.tcRole)
-			}else{
-				verifySys.deleteTCUser(TCOutDated[i].user_id)
+			await verifySys.deleteTCUser(TCOutDated[i].user_id)
+			try {
+				await client.users.fetch(TCOutDated[i].user_id).then(user => user.send({embeds:[embed]}))
+				await server.members.fetch(TCOutDated[i].user_id).then(user => user.roles.remove(config.tcRole))
+			}catch(error){
+				console.log(`${TCOutDated[i].user_id} 此人已退出 ${config.servername}`)
 			}
 		}
 	}, 24*60*60*1000);
@@ -129,10 +121,11 @@ client.on('messageCreate', async msg => {
             	 msg.reply('圖片格式錯誤，僅接受jpg與png檔案');
             	return
         	}else{
-
-				msg.author.send('已收到你的YT認證，敬請稍候審核').catch(error=>
-					msg.reply('請允許"允許來自伺服器成員的私人訊息"'))
-			
+				try{
+					msg.author.send('已收到你的YT認證，敬請稍候審核')
+				}catch(error){
+					msg.reply('請將"允許來自伺服器成員的私人訊息"打開後重新驗證')
+					return}
 				const embed = new MessageEmbed()
 					.setTitle(`${msg.author.tag} (${msg.author.id})`)
 					.setDescription(`審查：<@${msg.author.id}>`)
@@ -168,8 +161,11 @@ client.on('messageCreate', async msg => {
             	 msg.reply('圖片格式錯誤，僅接受jpg與png檔案');
             	return
         	}else{
-				msg.author.send('已收到你的TC認證，敬請稍候審核').catch(error=>
-					msg.reply('請將"允許來自伺服器成員的私人訊息"打開'))
+				try{
+					msg.author.send('已收到你的TC認證，敬請稍候審核')
+				}catch(error){
+					msg.reply('請將"允許來自伺服器成員的私人訊息"打開後重新驗證')
+					return}
 				const embed = new MessageEmbed()
 					.setTitle(`${msg.author.tag} (${msg.author.id})`)
 					.setDescription(`審查：<@${msg.author.id}>`)

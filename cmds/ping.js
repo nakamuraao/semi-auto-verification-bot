@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('ping')
-		.setDescription('確認延遲'),
+		.setDescription('確認延遲或機器人狀態'),
 
 	async execute(interaction) {
 
