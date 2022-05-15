@@ -9,7 +9,7 @@ module.exports = {
         .addSubcommand(sub=>sub.setName('youtube').setDescription('從YT會員資料庫移除').addStringOption(option=>option.setName('user').setDescription('使用者UID').setRequired(true)))
         .addSubcommand(sub=>sub.setName('twitcasting').setDescription('從TC資料庫移除').addStringOption(option=>option.setName('user').setDescription('使用者UID').setRequired(true))),
 
-    async execute(interaction){
+    async execute(interaction,client){
 
         if(interaction.member.roles.cache.some(role=>role.id === config.adminRole1)||interaction.member.roles.cache.some(role=>role.id === config.adminRole2)||interaction.member.roles.cache.some(role=>role.id === config.adminRole3)||interaction.member.roles.cache.some(role=>role.id === config.adminRole4)){
             const id = interaction.options.getString('user')
