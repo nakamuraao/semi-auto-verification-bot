@@ -121,11 +121,9 @@ client.on('messageCreate', async msg => {
             	 msg.reply('圖片格式錯誤，僅接受jpg與png檔案');
             	return
         	}else{
-				try{
-					msg.author.send('已收到你的YT認證，敬請稍候審核')
-				}catch(error){
-					msg.reply('請將"允許來自伺服器成員的私人訊息"打開')
-					}
+				await msg.author.send('已收到你的YT認證，敬請稍候審核').catch(error=> {
+					msg.reply('請允許"允許來自伺服器成員的私人訊息"')
+				});
 				const embed = new MessageEmbed()
 					.setTitle(`${msg.author.tag} (${msg.author.id})`)
 					.setDescription(`審查：<@${msg.author.id}>`)
@@ -161,11 +159,9 @@ client.on('messageCreate', async msg => {
             	 msg.reply('圖片格式錯誤，僅接受jpg與png檔案');
             	return
         	}else{
-				try{
-					msg.author.send('已收到你的TC認證，敬請稍候審核')
-				}catch(error){
-					msg.reply('請將"允許來自伺服器成員的私人訊息"打開')
-					}
+				await msg.author.send('已收到你的YT認證，敬請稍候審核').catch(error=> {
+					msg.reply('請允許"允許來自伺服器成員的私人訊息"')
+				});
 				const embed = new MessageEmbed()
 					.setTitle(`${msg.author.tag} (${msg.author.id})`)
 					.setDescription(`審查：<@${msg.author.id}>`)
