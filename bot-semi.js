@@ -3,7 +3,7 @@ const sql = require('sequelize')
 const { Client, Intents, Collection, MessageEmbed,MessageActionRow,MessageButton } = require('discord.js');
 const verifySys = require('./modules/verifySystem');
 const client = new Client({partials:['GUILD_MEMBER'] ,intents: [Intents.FLAGS.GUILDS , Intents.FLAGS.GUILD_MESSAGES,Intents.FLAGS.GUILD_MEMBERS] });
-const prefix = '=>'
+//const prefix = '=>'
 const fs = require('fs');
 client.commands = new Collection();
 client.buttons = new Collection();
