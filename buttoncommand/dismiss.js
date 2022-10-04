@@ -11,7 +11,7 @@ module.exports = {
             await client.users.fetch(oldEmbedFooter).then(user => user.send({embeds:[embed3]}))
             const approve = new MessageButton().setCustomId('approve').setLabel('通過').setStyle('SUCCESS').setDisabled(true)
             const dismiss = new MessageButton().setCustomId('dismiss').setLabel('不通過').setStyle('DANGER').setDisabled(true)
-            const finish = new MessageButton().setCustomId('finish').setLabel('審核駁回').setStyle('SECONDARY').setDisabled(true)
+            const finish = new MessageButton().setCustomId('finish').setLabel(`審核駁回 by ${interaction.user.tag}`).setStyle('SECONDARY').setDisabled(true)
             const row = new MessageActionRow().addComponents(approve).addComponents(dismiss).addComponents(finish)
             await interaction.update({components:[row]}); 
         }else if(interaction.channelId === config.adminTCChannel){
@@ -21,7 +21,7 @@ module.exports = {
             await client.users.fetch(oldEmbedFooter).then(user => user.send({embeds:[embed3]}))
             const approve = new MessageButton().setCustomId('approve').setLabel('通過').setStyle('SUCCESS').setDisabled(true)
             const dismiss = new MessageButton().setCustomId('dismiss').setLabel('不通過').setStyle('DANGER').setDisabled(true)
-            const finish = new MessageButton().setCustomId('finish').setLabel('審核駁回').setStyle('SECONDARY').setDisabled(true)
+            const finish = new MessageButton().setCustomId('finish').setLabel(`審核駁回 by ${interaction.user.tag}`).setStyle('SECONDARY').setDisabled(true)
             const row = new MessageActionRow().addComponents(approve).addComponents(dismiss).addComponents(finish)
             await interaction.update({components:[row]}); 
         }
