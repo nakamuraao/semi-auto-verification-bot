@@ -1,20 +1,25 @@
 {
-  "name": "semi-auto-bot",
-  "version": "1.3.0",
-  "description": "",
-  "main": "bot.js",
+  "name": "semi-auto-2",
+  "version": "1.0.0",
+  "description": "`Semi-auto Membership Verification Bot` can help admins to easily keep track of guild members who have membership(and membership roles). Once the admin clicked `approve`, the guild member gains the membership role for 32 days.",
+  "main": "bot-semi.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nakamuraao/semi-auto-verification-bot.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nakamuraao/semi-auto-verification-bot/issues"
+  },
+  "homepage": "https://github.com/nakamuraao/semi-auto-verification-bot#readme",
   "dependencies": {
-    "@discordjs/builders": "^0.12.0",
-    "@discordjs/rest": "^0.3.0",
-    "discord-api-types": "^0.26.1",
-    "discord.js": "^13.6.0",
-    "sequelize": "^6.19.0",
-    "sqlite3": "^5.0.6"
+    "discord.js": "^14.8.0",
+    "sequelize": "^6.30.0",
+    "sqlite3": "^5.1.6"
   }
 }

@@ -1,9 +1,9 @@
 const config = require('./config.json');
 const sql = require('sequelize')
-const { Client, Intents, Collection, MessageEmbed,MessageActionRow,MessageButton } = require('discord.js');
+const { Client, Events, Collection, EmbedBuilder,ActionRowBuilder,ButtonBuilder, GatewayIntentBits, ButtonStyle } = require('discord.js');
 const verifySys = require('./modules/verifySystem');
-const client = new Client({partials:['GUILD_MEMBER'] ,intents: [Intents.FLAGS.GUILDS , Intents.FLAGS.GUILD_MESSAGES,Intents.FLAGS.GUILD_MEMBERS] });
-//const prefix = '=>'
+const client = new Client({partials:['GUILD_MEMBER'] ,intents: [GatewayIntentBits.Guilds , GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers, GatewayIntentBits.MessageContent] });
+
 const fs = require('fs');
 client.commands = new Collection();
 client.buttons = new Collection();
@@ -18,7 +18,7 @@ const sequelize = new sql('database', 'user', 'password', {
 	storage: 'database.sqlite',
 });
 
-client.once('ready', async () => {
+client.once(Events.ClientReady, async () => {
 	for (const file of commandFiles) {
 		const command = require(`./cmds/${file}`);
 		await client.commands.set(command.data.name, command);
@@ -36,7 +36,7 @@ client.once('ready', async () => {
 	
 	const YTFirstOutDated = await verifySys.findOutdatedYTUser()
 	for(let i=0; i<YTFirstOutDated.length; i++){
-		const embed = new MessageEmbed().setDescription(`你在 ${config.servername} 的 Youtube會員 審核已過期，請重新驗證`).setColor('RED')
+		const embed = new EmbedBuilder().setDescription(`你在 ${config.servername} 的 Youtube會員 審核已過期，請重新驗證`).setColor('Red')
 		const server = client.guilds.cache.get(config.guildID)
 		await verifySys.deleteYTUser(YTFirstOutDated[i].user_id)
 		try {
@@ -49,7 +49,7 @@ client.once('ready', async () => {
 
 	const TCFirstOutDated = await verifySys.findOutdatedTCUser()
 	for(let i=0; i<TCFirstOutDated.length; i++){
-		const embed = new MessageEmbed().setDescription(`你在 ${config.servername} 的 TwitCasting會員 審核已過期，請重新驗證`).setColor('RED')
+		const embed = new EmbedBuilder().setDescription(`你在 ${config.servername} 的 TwitCasting會員 審核已過期，請重新驗證`).setColor('Red')
 		const server = client.guilds.cache.get(config.guildID)
 		await verifySys.deleteTCUser(TCFirstOutDated[i].user_id)
 		try {
@@ -71,7 +71,7 @@ client.once('ready', async () => {
 	setInterval(async () => {
 		const YTOutDated = await verifySys.findOutdatedYTUser()
 		for(let i=0; i<YTOutDated.length; i++){
-			const embed = new MessageEmbed().setDescription(`你在 ${config.servername} 的 Youtube會員 審核已過期，請重新驗證`).setColor('RED')
+			const embed = new EmbedBuilder().setDescription(`你在 ${config.servername} 的 Youtube會員 審核已過期，請重新驗證`).setColor('Red')
 			const server = client.guilds.cache.get(config.guildID)
 			await verifySys.deleteYTUser(YTOutDated[i].user_id)
 			try {
@@ -84,7 +84,7 @@ client.once('ready', async () => {
 
 		const TCOutDated = await verifySys.findOutdatedTCUser()
 		for(let i=0; i<TCOutDated.length; i++){
-			const embed = new MessageEmbed().setDescription(`你在 ${config.servername} 的 TwitCasting會員 審核已過期，請重新驗證`).setColor('RED')
+			const embed = new EmbedBuilder().setDescription(`你在 ${config.servername} 的 TwitCasting會員 審核已過期，請重新驗證`).setColor('Red')
 			const server = await client.guilds.cache.get(config.guildID)
 			await verifySys.deleteTCUser(TCOutDated[i].user_id)
 			try {
@@ -99,7 +99,7 @@ client.once('ready', async () => {
 });
 
 
-client.on('messageCreate', async msg => {
+client.on(Events.MessageCreate, async msg => {
 	if (msg.author.bot)return;
 	/*if (msg.content.startsWith(prefix+'url') && msg.guild.id==='946307370877857793'){
 		
@@ -124,10 +124,10 @@ client.on('messageCreate', async msg => {
 				msg.author.send('已收到你的YT認證，敬請稍候審核').catch(error=> {
 					msg.reply('請允許"允許來自伺服器成員的私人訊息"')
 				});
-				const embed = new MessageEmbed()
+				const embed = new EmbedBuilder()
 					.setTitle(`${msg.author.tag} (${msg.author.id})`)
 					.setDescription(`審查：<@${msg.author.id}>`)
-					.setColor('GREEN')
+					.setColor('Green')
 					.setFooter({text: msg.author.id})
 					.setImage(`${url}`)
 				/*{
@@ -142,9 +142,9 @@ client.on('messageCreate', async msg => {
 						  text: `${msg.author.id}`
 					},
 					image: {url :`${url}`}}*/
-				const approve = new MessageButton().setCustomId('approve').setLabel('通過').setStyle('SUCCESS')
-				const dismiss = new MessageButton().setCustomId('dismiss').setLabel('不通過').setStyle('DANGER')
-				const row = new MessageActionRow().addComponents(approve).addComponents(dismiss)
+				const approve = new ButtonBuilder().setCustomId('approve').setLabel('通過').setStyle(ButtonStyle.Success)
+				const dismiss = new ButtonBuilder().setCustomId('dismiss').setLabel('不通過').setStyle(ButtonStyle.Danger)
+				const row = new ActionRowBuilder().addComponents(approve).addComponents(dismiss)
 				const adminchannel =  client.channels.cache.get(config.adminYTChannel)
 				adminchannel.send({embeds:[embed],components:[row]})
 			}
@@ -152,6 +152,7 @@ client.on('messageCreate', async msg => {
 			msg.reply('此頻道僅限上傳圖片')
 		}
 	}else if(msg.channelId === config.tcChannel){
+		console.log(msg)
 		if(msg.attachments.size>0){
 			msg.attachments.forEach(a=>{
 			const url = a.url
@@ -162,10 +163,10 @@ client.on('messageCreate', async msg => {
 				msg.author.send('已收到你的TC認證，敬請稍候審核').catch(error=> {
 					msg.reply('請允許"允許來自伺服器成員的私人訊息"')
 				});
-				const embed = new MessageEmbed()
+				const embed = new EmbedBuilder()
 					.setTitle(`${msg.author.tag} (${msg.author.id})`)
 					.setDescription(`審查：<@${msg.author.id}>`)
-					.setColor('GREEN')
+					.setColor('Green')
 					.setFooter({text: msg.author.id})
 					.setImage(`${url}`)
 				/*{
@@ -180,9 +181,9 @@ client.on('messageCreate', async msg => {
 						  text: `${msg.author.id}`
 					},
 					image: {url :`${url}`}}*/
-				const approve = new MessageButton().setCustomId('approve').setLabel('通過').setStyle('SUCCESS')
-				const dismiss = new MessageButton().setCustomId('dismiss').setLabel('不通過').setStyle('DANGER')
-				const row = new MessageActionRow().addComponents(approve).addComponents(dismiss)
+				const approve = new ButtonBuilder().setCustomId('approve').setLabel('通過').setStyle(ButtonStyle.Success)
+				const dismiss = new ButtonBuilder().setCustomId('dismiss').setLabel('不通過').setStyle(ButtonStyle.Danger)
+				const row = new ActionRowBuilder().addComponents(approve).addComponents(dismiss)
 				const adminchannel =  client.channels.cache.get(config.adminTCChannel)
 				adminchannel.send({embeds:[embed],components:[row]})
 			}
@@ -193,7 +194,7 @@ client.on('messageCreate', async msg => {
 })
 
 
-client.on('interactionCreate',async interaction => {
+client.on(Events.InteractionCreate,async interaction => {
 	const command = await client.commands.get(interaction.commandName)
 	const button = await client.buttons.get(interaction.customId+'.js')
 

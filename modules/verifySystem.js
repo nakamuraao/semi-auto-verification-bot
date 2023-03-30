@@ -46,7 +46,7 @@ async function findOutdatedYTUser() {
 async function deleteYTUser(userId){
 	await YTmember.destroy({ where: { user_id: userId } });
 }
-////////////////////////////////
+
 async function addTCMember(userId) {
 	const now = new Date();
 	await TCmember.create({
