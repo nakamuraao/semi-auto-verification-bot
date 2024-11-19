@@ -101,92 +101,65 @@ client.once(Events.ClientReady, async () => {
 
 client.on(Events.MessageCreate, async msg => {
 	if (msg.author.bot)return;
-	/*if (msg.content.startsWith(prefix+'url') && msg.guild.id==='946307370877857793'){
-		
-		if(msg.attachments.size>0){
-			msg.attachments.forEach(a=>{
-			const url = a.url
-			msg.reply('圖片url : '+url)
-		})}else{
-			msg.reply('請將圖片以附件形式加在訊息中')
-		}
-	}*/
+
 	if (msg.channelId === config.ytChannel){
 		
 		if(msg.attachments.size>0){
-			
-			msg.attachments.forEach(a=>{
-			const url = a.url
-			if(!url.startsWith('https://')||(!url.endsWith('.jpg')&&!url.endsWith('.png')&&!url.endsWith('.PNG')&&!url.endsWith('.JPG'))){
-            	 msg.reply('圖片格式錯誤，僅接受jpg與png檔案');
-            	return
-        	}else{
-				msg.author.send('已收到你的YT認證，敬請稍候審核').catch(error=> {
-					msg.reply('請允許"允許來自伺服器成員的私人訊息"')
-				});
-				const embed = new EmbedBuilder()
-					.setTitle(`${msg.author.tag} (${msg.author.id})`)
-					.setDescription(`審查：<@${msg.author.id}>`)
-					.setColor('Green')
-					.setFooter({text: msg.author.id})
-					.setImage(`${url}`)
-				/*{
-					title: "會員審查",
-					description: `審查：<@${msg.author.id}>`,
-					author: {
-						  name: `${msg.author.tag}`,
-						  icon_url: `${msg.author.avatarURL()}`
-					},
-					color: 53380,
-					footer: {
-						  text: `${msg.author.id}`
-					},
-					image: {url :`${url}`}}*/
-				const approve = new ButtonBuilder().setCustomId('approve').setLabel('通過').setStyle(ButtonStyle.Success)
-				const dismiss = new ButtonBuilder().setCustomId('dismiss').setLabel('不通過').setStyle(ButtonStyle.Danger)
-				const row = new ActionRowBuilder().addComponents(approve).addComponents(dismiss)
-				const adminchannel =  client.channels.cache.get(config.adminYTChannel)
-				adminchannel.send({embeds:[embed],components:[row]})
-			}
-		})}else{
+
+			msg.attachments.forEach(a => {
+				const url = a.url
+				const contentType = a.contentType;
+				console.log(contentType)
+				if ((contentType != 'image/png') && (contentType != 'image/jpeg')) {
+					msg.reply('圖片格式錯誤，僅接受jpg與png檔案');
+					return
+				} else {
+					msg.author.send('已收到你的YT認證，敬請稍候審核').catch(error => {
+						msg.reply('請允許"允許來自伺服器成員的私人訊息"')
+					});
+					const embed = new EmbedBuilder()
+						.setTitle(`${msg.author.tag} (${msg.author.id})`)
+						.setDescription(`審查：<@${msg.author.id}>`)
+						.setColor('Green')
+						.setFooter({ text: msg.author.id })
+						.setImage(`${url}`)
+
+					const approve = new ButtonBuilder().setCustomId('approve').setLabel('通過').setStyle(ButtonStyle.Success)
+					const dismiss = new ButtonBuilder().setCustomId('dismiss').setLabel('不通過').setStyle(ButtonStyle.Danger)
+					const row = new ActionRowBuilder().addComponents(approve).addComponents(dismiss)
+					const adminchannel = client.channels.cache.get(config.adminYTChannel)
+					adminchannel.send({ embeds: [embed], components: [row] })
+				}
+			});
+		} else {
 			msg.reply('此頻道僅限上傳圖片')
 		}
 	}else if(msg.channelId === config.tcChannel){
-		console.log(msg)
+		//console.log(msg)
 		if(msg.attachments.size>0){
 			msg.attachments.forEach(a=>{
-			const url = a.url
-			if(!url.startsWith('https://')||(!url.endsWith('.jpg')&&!url.endsWith('.png')&&!url.endsWith('.PNG')&&!url.endsWith('.JPG'))){
-            	 msg.reply('圖片格式錯誤，僅接受jpg與png檔案');
-            	return
-        	}else{
-				msg.author.send('已收到你的TC認證，敬請稍候審核').catch(error=> {
-					msg.reply('請允許"允許來自伺服器成員的私人訊息"')
-				});
-				const embed = new EmbedBuilder()
-					.setTitle(`${msg.author.tag} (${msg.author.id})`)
-					.setDescription(`審查：<@${msg.author.id}>`)
-					.setColor('Green')
-					.setFooter({text: msg.author.id})
-					.setImage(`${url}`)
-				/*{
-					title: "會員審查",
-					description: `審查：<@${msg.author.id}>`,
-					author: {
-						  name: `${msg.author.tag}`,
-						  icon_url: `${msg.author.avatarURL()}`
-					},
-					color: 53380,
-					footer: {
-						  text: `${msg.author.id}`
-					},
-					image: {url :`${url}`}}*/
-				const approve = new ButtonBuilder().setCustomId('approve').setLabel('通過').setStyle(ButtonStyle.Success)
-				const dismiss = new ButtonBuilder().setCustomId('dismiss').setLabel('不通過').setStyle(ButtonStyle.Danger)
-				const row = new ActionRowBuilder().addComponents(approve).addComponents(dismiss)
-				const adminchannel =  client.channels.cache.get(config.adminTCChannel)
-				adminchannel.send({embeds:[embed],components:[row]})
-			}
+				const url = a.url
+				const contentType = a.contentType;
+				if((contentType != 'image/png') && (contentType != 'image/jpeg')){
+					msg.reply('圖片格式錯誤，僅接受jpg與png檔案');
+					return
+				}else{
+					msg.author.send('已收到你的TC認證，敬請稍候審核').catch(error=> {
+						msg.reply('請允許"允許來自伺服器成員的私人訊息"')
+					});
+					const embed = new EmbedBuilder()
+						.setTitle(`${msg.author.tag} (${msg.author.id})`)
+						.setDescription(`審查：<@${msg.author.id}>`)
+						.setColor('Green')
+						.setFooter({text: msg.author.id})
+						.setImage(`${url}`)
+
+					const approve = new ButtonBuilder().setCustomId('approve').setLabel('通過').setStyle(ButtonStyle.Success)
+					const dismiss = new ButtonBuilder().setCustomId('dismiss').setLabel('不通過').setStyle(ButtonStyle.Danger)
+					const row = new ActionRowBuilder().addComponents(approve).addComponents(dismiss)
+					const adminchannel =  client.channels.cache.get(config.adminTCChannel)
+					adminchannel.send({embeds:[embed],components:[row]})
+				}
 		})}else{
 			msg.reply('此頻道僅限上傳圖片')
 		}
